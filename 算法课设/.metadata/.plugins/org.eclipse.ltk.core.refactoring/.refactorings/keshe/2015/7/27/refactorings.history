@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;keshe1.动态规划&apos; to &apos;dongtaiguihua&apos;&#x0D;&#x0A;- Original project: &apos;keshe&apos;&#x0D;&#x0A;- Original element: &apos;keshe1.动态规划&apos;&#x0D;&#x0A;- Renamed element: &apos;keshe1.dongtaiguihua&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;动态规划&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;keshe1{动态规划.java[动态规划" matchStrategy="1" name="dongtaiguihua" qualified="false" references="true" similarDeclarations="false" stamp="1435917110852" textual="false" version="1.0"/>
+</session>

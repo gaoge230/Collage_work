@@ -1,0 +1,178 @@
+package wuziqi;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Gamestart {
+
+	//定义达到赢的棋子数目
+	private final int WIN_COUNT=5;
+	//定义下棋的坐标
+	private int posX=0,posY=0;
+	//定义一个下棋用的去棋盘
+	private Chessboard chessboard;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	//无参数构造器
+	public Gamestart()
+	{
+		
+	}
+	//有参数构造器
+	public Gamestart(Chessboard chessboard)
+	{
+		this.chessboard=chessboard;
+	}
+	//此方法验证控制台的输入字符串是否合法，如果合法，返回
+	//true，如果不合法，则返回false，此方法抛出Exception 异常。
+	public boolean isValid(String inputStr)
+	{
+		//BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		//String inputStr=null;
+		//br.readLine:每当键盘输入一行内容按回车键，则输入的内容被br 读取到
+		//检查输入是否合法
+		
+			//将用户输入的字符串以逗号(,)作为分隔，分隔成两个字符串
+			String[] posStrArr=inputStr.split(",");
+			try {
+				posX=Integer.parseInt(posStrArr[0])-1;
+				posY=Integer.parseInt(posStrArr[1])-1;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				
+				chessboard.printBoard();
+				System.out.println("请以（数字，数字）的格式输入");
+				return false;
+				
+			}
+			
+			// 检查输入数值是否在范围之内
+			if(posX<0||posX>Chessboard.BOARD_SIZE||posY<0||posY>Chessboard.BOARD_SIZE)
+			{
+				chessboard.printBoard();
+				System.out.println("X,Y的坐标只能大于零小于"+Chessboard.BOARD_SIZE+"   请重新输入：");
+				return false;
+				
+ 			}
+			//检查输入的位置是否已经有棋子
+			String[][] board=chessboard.getBoard();
+			
+			if(board[posX][posY]!="+")
+			{
+				chessboard.printBoard();
+				System.out.println("此位置已有棋子，请重新输入：");
+				return false;
+				
+			}
+		
+	}
+	public void start()
+	{
+		//true 为游戏结束
+		boolean isover=false;
+		
+		chessboard.initBoard();
+		chessboard.printBoard();
+		//获取键盘输入
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		String inputStr=null;
+		//br.readLine:每当键盘输入一行内容按回车键，则输入的内容被br 读取到
+		while((inputStr=br.readLine())!=null)
+		{
+			isover=false;
+			if(!isValid(inputStr))
+			{
+				//如果输入不合法，请重新输入
+				System.out.println("输入不合法，请重新输入");
+				
+				continue;
+			}
+			//把对应的用户付给chessman
+			String chessman=Chessman.BLACK.getChessman();
+			chessboard.setBoard(posX, posY, chessman);
+			//判断用户是否赢了
+			if(isWon(posX,posY,chessman))
+			{
+				isover=true;
+			}else{
+				//计算机随机下棋
+				int[] computerPosArr=computerDo();
+				chessman=Chessman.WHITE.getChessman();
+				chessboard.setBoard(computerPosArr[0], computerPosArr[1], chessman);
+				//判断计算机输赢
+				if(isWon(computerPosArr[0], computerPosArr[1], chessman))
+				{
+					isover=true;
+				}
+				
+			}
+			//如果产生胜者，询问用户是否继续游戏
+			if(isover)
+			{
+				//如果继续，重新初始化键盘
+				if(isReplay(chessman))
+				{
+					chessboard.initBoard();
+					chessboard.printBoard();
+					continue;
+				}
+				//如果不继续，退出
+				break;
+				
+			}
+			chessboard.printBoard();
+			System.out.println("请输入您下棋的坐标，请以x，y的形式输入：");
+			
+		}
+	
+	//是否重新开始游戏，如果是，返回true，否则返回false，
+	//参数chessman 代表黑子或白子。
+	 public boolean isReplay(String chessman)throws Exception
+	 {
+			chessboard.printBoard();
+			String message=chessman.equals(Chessman.BLACK.getChessman())
+		               ?"恭喜您，您赢了":"很遗憾，您输了";
+		    System.out.println(message+"再下一句？（y/n）。");
+		    BuffersdReader br=new BuffersdReader(new InputStreamReader(System.in));
+		    if(br.readLine().equals("y"))
+		    {
+		    	//开始下一局
+		    	return true;
+		    	
+		    }
+		    return false;
+    }
+	
+	//计算机随机下棋，由计算机自动设置棋盘，并返回包含新下棋子位置x 与
+	// y 坐标的int[]数组类型。
+	public int[] computerDo()
+	{
+		//随机生成x坐标
+		int posX=(int)(Math.random()*(Chessboard.BOARD_SIZE-1));
+		//随机生成y坐标
+		int posY=(int)(Math.random()*(Chessboard.BOARD_SIZE-1));
+		String[][] board=chessboard.getBoard();
+		//当棋盘中的位置不是+的时候，则再次输入
+		while(board[posX][posY]!="+")
+		{
+			posX=(int)(Math.random()*(Chessboard.BOARD_SIZE-1));
+			posY=(int)(Math.random()*(Chessboard.BOARD_SIZE-1));
+		}
+		int[] result={posX,posY};
+		return result;
+	}
+	//判断输赢，参数posX 与posY 代表新下棋子
+	public boolean isWon(int posX,int posY,String ico)
+	{
+		
+	}
+	
+	
+		
+	
+	
+
+}

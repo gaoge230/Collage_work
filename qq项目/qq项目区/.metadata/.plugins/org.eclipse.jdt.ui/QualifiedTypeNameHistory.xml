@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="com.qq.client.model.Qqclientuser"/>
+<fullyQualifiedTypeName name="com.qq.common.User"/>
+<fullyQualifiedTypeName name="com.qq.common.Message"/>
+<fullyQualifiedTypeName name="com.qq.server.model.Myqqserver"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.qq.client.view.Qqchat"/>
+</qualifiedTypeNameHistroy>

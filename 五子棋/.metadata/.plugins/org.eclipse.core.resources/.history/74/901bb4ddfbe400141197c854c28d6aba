@@ -1,0 +1,52 @@
+package wuziqi;
+
+public class Chessboard {
+	//定义一个二维数组来存放棋盘
+	private String[][] board;
+	//设置棋盘大小
+	public static final int BOARD_SIZE=20;
+	//定义一个空棋盘
+	public void initBoard()
+	{
+		
+	    board=new String[BOARD_SIZE][BOARD_SIZE];
+		for(int i=0;i<board.length;i++)
+			for(int j=0;j<board.length;j++)
+				board[i][j]="+";
+		
+		}
+	//什么意思？？
+	public void test() {
+		Object[][] array = new Object[10][10];
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+				array[i][j] = new Object();
+			}
+		}
+	}
+	//打印棋盘
+	public void printBoard()
+	{
+		for(int i=0;i<board.length;i++)
+		{
+			for(int j=0;j<board.length;j++)
+			{
+				System.out.print(board[i][j]);
+			}
+			System.out.print("\n");
+		}
+			
+	}
+
+	//每下完一步棋给棋盘赋值
+	public void setBoard(int posX,int posY,String chessman)
+	{
+		this.board[posX][posY]=chessman;
+		
+	}
+	//返回棋盘
+	public String[][] getBoard()
+	{
+		return this.board;
+	}
+}
