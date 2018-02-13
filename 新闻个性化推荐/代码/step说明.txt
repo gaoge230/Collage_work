@@ -1,0 +1,5 @@
+1、函数 getTimebyString(publishtime):得到发布时间
+2、函数sort_by_value(d):将值排序
+3、找见前一条新闻：count_news(userId,newsId,filename,publishtime)
+4、new_Id_time_Data() ：找出点击的最后一条新闻来
+5、

@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 12 10:20:35 2014
+
+@author: zhan
+"""
+import  csv
+import datetime
+# this is the 8th step of the code ,we divide the data into 31 parts by the scan time to 
+#solve the left user
+
+# d sorted by value
+def getTimebyString(publishtime):
+    year = int (publishtime[0:4])
+    mon = int (publishtime[6:8])
+    day = int (publishtime[10:12])
+    d = datetime.datetime(year,mon,day)
+    return d
+def sort_by_value(d): 
+    items=d.items() 
+    backitems=[[v[1],v[0]] for v in items] 
+    backitems.sort() 
+    return [ backitems[i][1] for i in range(0,len(backitems))] 
+#find the prior news
+def count_news(userId ,newsId ,filename,publishtime):
+    data_path = 'E:/datamining/SecCompection/'  
+    filepath = data_path+filename+'.txt'        # the next step use the "alltimescan.txt"
+    mapping = {}   
+    with open(filepath,'rb') as f:
+        #use to calculate the all number
+        count = 0.0
+        for e,line in enumerate(f):
+            line = line.split('\t')
+            #a temporary flag
+            if(e == 0):
+                t_user_Id = ''
+                t_news_Id = ''
+                t_second = 0.0
+            user_Id = line[0]
+            news_Id = line[1]
+            second = float(line[2])
+            if(news_Id == newsId):
+                if(user_Id == t_user_Id ):
+                       count +=1
+                       try:
+                           mapping[t_news_Id] += 1
+                       except KeyError:
+                           mapping[t_news_Id] = 1
+                           
+            t_user_Id = user_Id
+            t_news_Id = news_Id
+            t_second = second
+    #recommendthe most pupular news
+    result = []
+    r_news = sort_by_value(mapping)[-1:]
+    r_news2 = sort_by_value(mapping)[-1:]
+    for news in r_news:
+        conference = mapping[news]/count
+        if(  conference >= 0.1):
+            result.append(news)
+    if(len(result)==0):
+        for news in r_news2:
+          result.append(news)
+		  print result
+    return result,count,mapping
+    
+
+#find the last click news
+def new_Id_time_Data():
+    data_path = 'E:/datamining/SecCompection/'
+    raw_file = data_path + 'flagnum.txt'       #data of need
+    left_user = data_path + 'step11_3.txt'     #output data.txt
+    allmappingfile = data_path + 'allmapping.txt'  # func of count_news()'s data
+    output_file = data_path +'step11_3.csv'  #doutput data
+    o = open( output_file, 'wb' )   # write into the final file
+    writer = csv.writer(o)  
+    with open (raw_file,'rb') as f: 
+        with open(left_user,'wb') as l:
+            with open(allmappingfile,'wb') as a:
+                head= ['userid','newsid']
+                temp = []
+                writer.writerow( head )
+                for e,line in enumerate(f):
+                    line = line.split('\t')
+                    user_Id = line[0]
+                    news_Id = line[1]
+                    timestamp = line[2]
+                    r_news = []
+                    scantime = line[3]
+                    publishtime = line[4]
+                    r_news,count,mapp= count_news(user_Id,news_Id,'alltimescan',publishtime)
+#                    for i in mapp:
+#                        temps =i +'\t'+ str(mapp[i])
+#                        a.write(user_Id + '\t'+temps + '\n')  
+                    if(len(r_news)==0 ):
+                        r_news.append(news_Id)
+                        l.write(user_Id+'\t'+news_Id+'\t'+timestamp+'\t'+line[3]+'\t'+line[4]+'\n')
+#                        l.write(user_Id+'\n')
+#                        continue
+                    for i in r_news:
+                        result=[user_Id]
+                        result.append(i)
+						#print result
+                        writer.writerow(result)    
+#                    if(e > 100):
+#                        break
+    print len(temp)
+    l.close()
+    f.close()
+    o.close()  
+new_Id_time_Data()
