@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 数据库配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/ezn_data">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+	<!-- -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- 配置实体描述文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/ssh/pojo/Userinfo.hbm.xml</value>
+				<value>org/ssh/pojo/Client.hbm.xml</value>
+				<value>org/ssh/pojo/press.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="UserManagerAct" class="org.ssh.action.UserManagerAct"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="userService" class="org.ssh.service.UserManagerService">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	
+	<bean id="ClientAction" class="org.ssh.action.ClientAction" scope="prototype">
+		<property name="clientManagerService" ref="clientManagerService"></property>
+	</bean>
+	<bean id="clientManagerService" class="org.ssh.service.ClientManagerService">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	<bean id="dao" class="org.ssh.dao.BaseDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>

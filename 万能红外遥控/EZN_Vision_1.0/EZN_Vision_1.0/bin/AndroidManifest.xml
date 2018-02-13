@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gao.ezn_vision"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序修改全局音频设置 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 红外权限 -->
+    <uses-permission android:name="android.permission.TRANSMIT_IR" />
+    <uses-feature android:name="android.hardware.ConsumerIrManager" />
+    <!-- 手机震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> 
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/about_logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.gao.activity.ControllerActivity"
+            android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.gao.activity.AddDeviceActivity"
+            android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
+            
+     </activity>
+     <activity
+            android:name="com.gao.activity.TvDeviceActivity"
+            android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
+            
+     </activity>
+     <activity
+            android:name="com.gao.activity.ComputerDeviceActivity"
+            android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
+            
+     </activity>
+    </application>
+    
+    
+
+</manifest>

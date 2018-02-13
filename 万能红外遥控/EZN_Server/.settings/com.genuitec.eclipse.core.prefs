@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/static,WebRoot/public/lib,WebRoot/lib/jquery.validation,WebRoot/public/static,WebRoot/lib/zTree,WebRoot/lib/datatables,WebRoot/lib/respond.min.js,WebRoot/lib/nprogress,WebRoot/lib/echarts,WebRoot/lib/hcharts,WebRoot/lib/lightbox2,WebRoot/lib/ueditor,WebRoot/lib/webuploader
+validator.Unchecked=

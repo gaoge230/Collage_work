@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="structs.devMode" value="true"></constant>
+	<constant name="struts.objectFactory" value="spring" />
+	<!--需要将struts-default改为json-default -->
+	<package name="/" namespace="/" extends="json-default">
+		<!-- <global-results> <result name="error">/jsp/error.jsp</result> <result 
+			name="success">/jsp/success.jsp</result> </global-results> <action name="userManagerAct" 
+			class="UserManagerAct" method="doLogin"> <result name="login">/index.jsp</result> 
+			</action> -->
+
+		<action name="queryid" class="UserManagerAct" method="doQueryIdAndUserCode">
+			<!-- 返回json -->
+			<result name="success" type="json">
+				<param name="root">jdata</param>
+			</result>
+		</action>
+
+		<!-- <action name="delete" class="UserManagerAct" method="doDelete" /> 
+			<action name="edit" class="userAct" method="doEdit"> <result name="editUser">/jsp/editUser.jsp</result> 
+			</action> <action name="add" class="userAct" method="doAdd"> <result name="addUser">/jsp/addUser.jsp</result> 
+			</action> -->
+	</package>
+	<package name="a" namespace="/" extends="struts-default">
+		<action name="login" class="org.ssh.action.ClientAction"
+			method="doLogin">
+			<result name="SUCCESS">/index.html</result>
+			<result name="INPUT">/login.html</result>
+		</action>
+	</package>
+</struts>    

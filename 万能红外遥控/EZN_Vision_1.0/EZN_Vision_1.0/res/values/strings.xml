@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">无敌遥控器</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="strProduct">zbdx</string>
+    <string name="up">↑</string>
+    <string name="down">↓</string>
+    <string name="left">←</string>
+    <string name="right">→</string>
+    <string name="click">单击 </string>
+    <string name="gray">#ff8a8a8a</string>
+
+</resources>
